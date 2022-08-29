@@ -3,6 +3,7 @@ const {
   unlinkSync,
   writeFile,
   createWriteStream,
+  existsSync,
 } = require("fs");
 const path = require("path");
 const express = require("express");
@@ -21,6 +22,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
+  if (existsSync("./output/output.zip")) {
+    unlinkSync("./output/output.zip");
+  }
   res.render("index");
 });
 
